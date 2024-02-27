@@ -1,4 +1,4 @@
-const APIkey = "";
+const APIkey = "74294344441e172ea5c559c3563c3c68";
 var lat = "";
 var lon = "";
 
@@ -12,11 +12,9 @@ var windspeed = "";
 var addCallCount = 0;
 
 
-function getLatLon()
-{
+function getLatLon() {
     var place = getLocation();
-    if(place!="")
-    {
+    if (place != "") {
         fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=5&appid=${APIkey}`)
             .then(nresponse => {
                 if (!nresponse.ok) {
@@ -25,14 +23,13 @@ function getLatLon()
                 return nresponse.json();
             })
             .then(ndata => {
-                if(ndata.length<1)
-                {
+                if (ndata.length < 1) {
                     document.getElementsByTagName("input")[0].classList.add("warn");
                     document.getElementsByTagName("input")[0].placeholder = "Error! Place not Found....."
                     document.getElementById("locations").value = "";
                     return 0;
                 }
-                if(ndata!=null) {
+                if (ndata != null) {
                     console.log(ndata);
                     lat = ndata[0].lat;
                     lon = ndata[0].lon;
@@ -44,18 +41,15 @@ function getLatLon()
             });
     }
 }
-function getLocation()
-{
+function getLocation() {
     var locations = document.getElementById("locations").value;
     console.log(locations);
-    if(locations!="")
-    {
+    if (locations != "") {
         var search = document.getElementsByClassName("search")[0];
         search.style.marginTop = "1%";
         document.getElementsByTagName("input")[0].classList.remove("warn");
     }
-    else
-    {
+    else {
         document.getElementsByTagName("input")[0].classList.add("warn");
         document.getElementsByTagName("input")[0].placeholder = "Enter a location"
     }
@@ -93,12 +87,10 @@ function getWeather() {
 }
 
 
-function addElements()
-{
+function addElements() {
     console.log("add elements called");
-    addCallCount+=1;
-    if(addCallCount>1)
-    {
+    addCallCount += 1;
+    if (addCallCount > 1) {
         removeWeatherInfo();
         addCallCount = 1;
     }
@@ -148,10 +140,10 @@ function addElements()
 
     document.getElementById("weatherID").src = makeIconURL();
     document.getElementById("weatherDesc").innerHTML = wname;
-    document.getElementById("temp").innerHTML = temprature+"°C";
+    document.getElementById("temp").innerHTML = temprature + "°C";
     document.getElementById("pressurep").innerHTML = pressure;
-    document.getElementById("humidityp").innerHTML = humidity+" %";
-    document.getElementById("windspeed").innerHTML = Math.round(windspeed*3.6)+" KMPH";
+    document.getElementById("humidityp").innerHTML = humidity + " %";
+    document.getElementById("windspeed").innerHTML = Math.round(windspeed * 3.6) + " KMPH";
 }
 
 function removeWeatherInfo() {
@@ -161,8 +153,7 @@ function removeWeatherInfo() {
         resultsElement.remove();
     }
 }
-function makeIconURL()
-{
+function makeIconURL() {
     console.log("imag called");
     return `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
 }
