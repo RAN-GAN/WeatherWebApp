@@ -15,7 +15,7 @@ var addCallCount = 0;
 function getLatLon() {
     var place = getLocation();
     if (place != "") {
-        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=5&appid=${APIkey}`)
+        fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=5&appid=${APIkey}`)
             .then(nresponse => {
                 if (!nresponse.ok) {
                     throw new Error(nresponse.statusText);
